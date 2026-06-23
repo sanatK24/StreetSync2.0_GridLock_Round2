@@ -262,9 +262,12 @@ def traffic_light_svg(band):
 @st.cache_data(ttl=1800, show_spinner=False)
 def fetch_weather() -> dict:
     """Live Bengaluru weather from OpenMeteo (free, no API key).
+    Fails over to wttr.in if OpenMeteo returns 429 or is rate-limited on cloud platforms.
     Cached 30 min.  Fails gracefully — multiplier=1.0 if unreachable."""
+    import requests
+    
+    # Try Open-Meteo first
     try:
-        import requests
         r = requests.get(
             "https://api.open-meteo.com/v1/forecast",
             params={
@@ -273,7 +276,7 @@ def fetch_weather() -> dict:
                 "timezone": "Asia/Kolkata", "forecast_days": 1,
             },
             headers={"User-Agent": "astram-event-impact-forecaster/1.0 (hackathon prototype)"},
-            timeout=6,
+            timeout=5,
         )
         r.raise_for_status()
         curr = r.json()["current"]
@@ -298,10 +301,37 @@ def fetch_weather() -> dict:
         return dict(available=True, rain_mm=rain, weathercode=code,
                     temperature=temp, windspeed=wind, is_rain=is_rain,
                     is_heavy=is_heavy, multiplier=mult, description=desc)
-    except Exception as e:
-        print(f"DEBUG WEATHER FETCH ERROR: {e}", flush=True)
-        return dict(available=False, multiplier=1.0, is_rain=False,
-                    is_heavy=False, description="unavailable")
+    except Exception as primary_err:
+        print(f"Open-Meteo fetch failed ({primary_err}). Trying wttr.in fallback...", flush=True)
+        
+        # Failover to wttr.in
+        try:
+            r = requests.get(
+                "https://wttr.in/Bengaluru?format=j1",
+                headers={"User-Agent": "astram-event-impact-forecaster/1.0 (hackathon prototype)"},
+                timeout=5
+            )
+            r.raise_for_status()
+            data = r.json()
+            curr = data["current_condition"][0]
+            rain = float(curr.get("precipMM", 0) or 0)
+            temp = float(curr.get("temp_C", 28) or 28)
+            wind = float(curr.get("windspeedKmph", 0) or 0) / 3.6  # km/h to m/s
+            code = int(curr.get("weatherCode", 0) or 0)
+            desc = curr.get("weatherDesc", [{}])[0].get("value", "Cloudy")
+            
+            desc_lower = desc.lower()
+            is_rain = rain > 0 or any(w in desc_lower for w in ["rain", "drizzle", "shower", "thunderstorm"])
+            is_heavy = rain > 5 or any(w in desc_lower for w in ["heavy", "torrential", "thunderstorm"])
+            mult = 1.0 + (0.25 if is_rain else 0) + (0.25 if is_heavy else 0)
+            
+            return dict(available=True, rain_mm=rain, weathercode=code,
+                        temperature=temp, windspeed=wind, is_rain=is_rain,
+                        is_heavy=is_heavy, multiplier=mult, description=desc)
+        except Exception as fallback_err:
+            print(f"wttr.in fallback also failed: {fallback_err}", flush=True)
+            return dict(available=False, multiplier=1.0, is_rain=False,
+                        is_heavy=False, description="unavailable")
 
 
 def compute_anomaly(df, event_cause, corridor, closure_prob) -> dict | None:
