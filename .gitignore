@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.streamlit/secrets.toml
+
+# Generated at runtime - regenerate with `python src/train_models.py`
+# Comment these out if you want to commit a known-good set of models so
+# Streamlit Cloud doesn't need to retrain on first deploy.
+# models/*.joblib
+# models/*.json
+
+# Feedback log + augmented dataset are user-session data, not source
+feedback/outcomes_log.csv
+data/astram_event_data_augmented.csv

@@ -1,0 +1,188 @@
+{
+  "closure_model": [
+    {
+      "feature": "latitude",
+      "importance": 0.08856015358738707
+    },
+    {
+      "feature": "longitude",
+      "importance": 0.08602070568948161
+    },
+    {
+      "feature": "hour_sin",
+      "importance": 0.048939108327007846
+    },
+    {
+      "feature": "hour_cos",
+      "importance": 0.04602154164341312
+    },
+    {
+      "feature": "event_cause_vehicle_breakdown",
+      "importance": 0.043940718365624895
+    },
+    {
+      "feature": "dow_sin",
+      "importance": 0.03674864930148723
+    },
+    {
+      "feature": "event_type_planned",
+      "importance": 0.03468414983371802
+    },
+    {
+      "feature": "month",
+      "importance": 0.033905830501394514
+    },
+    {
+      "feature": "event_type_unplanned",
+      "importance": 0.03254113962619641
+    },
+    {
+      "feature": "event_cause_tree_fall",
+      "importance": 0.03178717449089717
+    },
+    {
+      "feature": "dow_cos",
+      "importance": 0.026682633032202748
+    },
+    {
+      "feature": "event_cause_construction",
+      "importance": 0.02474406995366385
+    },
+    {
+      "feature": "zone_Unknown",
+      "importance": 0.012812682316361103
+    },
+    {
+      "feature": "daypart_Late Night (00-04)",
+      "importance": 0.012730669538224191
+    },
+    {
+      "feature": "is_weekend",
+      "importance": 0.011040784023799242
+    }
+  ],
+  "duration_model": [
+    {
+      "feature": "event_cause_vehicle_breakdown",
+      "importance": 0.4747601406133396
+    },
+    {
+      "feature": "corridor_ORR East 2",
+      "importance": 0.11072544857105122
+    },
+    {
+      "feature": "event_cause_public_event",
+      "importance": 0.05828893199415567
+    },
+    {
+      "feature": "event_cause_accident",
+      "importance": 0.05808596118375132
+    },
+    {
+      "feature": "event_type_planned",
+      "importance": 0.042299378159356006
+    },
+    {
+      "feature": "hour_sin",
+      "importance": 0.03571826141799691
+    },
+    {
+      "feature": "hour_cos",
+      "importance": 0.027747262438784615
+    },
+    {
+      "feature": "daypart_Morning (07-10)",
+      "importance": 0.027510442948901336
+    },
+    {
+      "feature": "event_cause_others",
+      "importance": 0.02562143094045005
+    },
+    {
+      "feature": "month",
+      "importance": 0.021853037215038253
+    },
+    {
+      "feature": "zone_Unknown",
+      "importance": 0.0209139417665988
+    },
+    {
+      "feature": "event_type_unplanned",
+      "importance": 0.01760036375112035
+    },
+    {
+      "feature": "dow_cos",
+      "importance": 0.01694849093853205
+    },
+    {
+      "feature": "dow_sin",
+      "importance": 0.016780629864056745
+    },
+    {
+      "feature": "daypart_Early Morning (04-07)",
+      "importance": 0.004339099542639597
+    }
+  ],
+  "duration_tier_model": [
+    {
+      "feature": "event_cause_vehicle_breakdown",
+      "importance": 0.32456178510404793
+    },
+    {
+      "feature": "event_cause_construction",
+      "importance": 0.09029723945072164
+    },
+    {
+      "feature": "event_type_unplanned",
+      "importance": 0.08861262166311862
+    },
+    {
+      "feature": "event_type_planned",
+      "importance": 0.08552608824792557
+    },
+    {
+      "feature": "event_cause_others",
+      "importance": 0.050913786258480906
+    },
+    {
+      "feature": "corridor_ORR East 2",
+      "importance": 0.041556537409041305
+    },
+    {
+      "feature": "event_cause_water_logging",
+      "importance": 0.029678922788202798
+    },
+    {
+      "feature": "hour_sin",
+      "importance": 0.028674334454769048
+    },
+    {
+      "feature": "hour_cos",
+      "importance": 0.02863466550220828
+    },
+    {
+      "feature": "event_cause_public_event",
+      "importance": 0.025098292594120598
+    },
+    {
+      "feature": "event_cause_tree_fall",
+      "importance": 0.022672454986669966
+    },
+    {
+      "feature": "event_cause_accident",
+      "importance": 0.01753209808490912
+    },
+    {
+      "feature": "month",
+      "importance": 0.014866420607918082
+    },
+    {
+      "feature": "dow_sin",
+      "importance": 0.014016592252427289
+    },
+    {
+      "feature": "zone_East Zone 1",
+      "importance": 0.01296154557745212
+    }
+  ]
+}
