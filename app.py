@@ -272,6 +272,7 @@ def fetch_weather() -> dict:
                 "current": "precipitation,weathercode,temperature_2m,windspeed_10m",
                 "timezone": "Asia/Kolkata", "forecast_days": 1,
             },
+            headers={"User-Agent": "astram-event-impact-forecaster/1.0 (hackathon prototype)"},
             timeout=6,
         )
         r.raise_for_status()
@@ -297,7 +298,8 @@ def fetch_weather() -> dict:
         return dict(available=True, rain_mm=rain, weathercode=code,
                     temperature=temp, windspeed=wind, is_rain=is_rain,
                     is_heavy=is_heavy, multiplier=mult, description=desc)
-    except Exception:
+    except Exception as e:
+        print(f"DEBUG WEATHER FETCH ERROR: {e}", flush=True)
         return dict(available=False, multiplier=1.0, is_rain=False,
                     is_heavy=False, description="unavailable")
 
